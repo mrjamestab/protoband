@@ -1,14 +1,17 @@
+
 # Rieles (L+=izq rojo, L-=izq azul, R+=der rojo, R-=der azul). Fila 010 con +5V en rojo izq
-L+:010=+
+L+:010=J+
 R-:012=1-
 R-:014=3-
 
+# Cableado jumper para alimentar 010e desde el riel rojo
+010a=J+
+
+
 # Botón (2): 010e–012e y 010f–012f
 010e=2
-011e=2
 012e=2
 010f=2
-011f=2
 012f=2
 
 # Buzzer (1)

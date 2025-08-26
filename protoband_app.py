@@ -141,6 +141,7 @@ class ProtoBoardApp:
         # Definir tags de color
         self.text.tag_configure("rojo", foreground="red")
         self.text.tag_configure("azul", foreground="blue")
+        self.text.tag_configure("jumper", foreground="orange")
 
         # Monoespaciada: Consolas en Windows; fallback si no está
         try:
@@ -184,6 +185,7 @@ class ProtoBoardApp:
             self.text.delete("1.0", "end")
 
             # Insertar línea por línea y colorear columnas "rojo" y "azul" (encabezados y valores)
+
             for idx, line in enumerate(lines):
                 line_start = f"{idx+1}.0"
                 self.text.insert(line_start, line + "\n")
@@ -207,6 +209,26 @@ class ProtoBoardApp:
                     tag_end = f"{idx+1}.{i+4}"
                     self.text.tag_add("azul", tag_start, tag_end)
                     col = i + 4
+
+                # Colorear jumpers (J+ o J-) en toda la línea
+                col = 0
+                while True:
+                    i = line.find("J+", col)
+                    if i == -1:
+                        break
+                    tag_start = f"{idx+1}.{i}"
+                    tag_end = f"{idx+1}.{i+2}"
+                    self.text.tag_add("jumper", tag_start, tag_end)
+                    col = i + 2
+                col = 0
+                while True:
+                    i = line.find("J-", col)
+                    if i == -1:
+                        break
+                    tag_start = f"{idx+1}.{i}"
+                    tag_end = f"{idx+1}.{i+2}"
+                    self.text.tag_add("jumper", tag_start, tag_end)
+                    col = i + 2
 
                 # Colorear valores de las columnas "rojo" y "azul" (usando posiciones fijas)
                 # Formato: 000 | rojo | azul | --- | ... | ... | rojo | azul |
